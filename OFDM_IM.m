@@ -11,12 +11,12 @@
 % Personal page: https://tvluong.wordpress.com
 
 %% References
-% [1] T. V. Luong and Y. Ko, �A tight bound on BER of MCIK-OFDM with
-% greedy detection and imperfect CSI,� IEEE Commun. Lett., vol. 21,
-% no. 12, pp. 2594 � 2597, Dec. 2017.
-% [2] T. V. Luong and Y. Ko, �Impact of CSI uncertainty on MCIK-OFDM:
-% tight, closed-form symbol error probability analysis,� IEEE Trans. Veh.
-% Technol., vol. 67, no. 2, pp. 1272 � 1279, Feb. 2018.
+% [1] T. V. Luong and Y. Ko, “A tight bound on BER of MCIK-OFDM with
+% greedy detection and imperfect CSI,” IEEE Commun. Lett., vol. 21,
+% no. 12, pp. 2594 – 2597, Dec. 2017.
+% [2] T. V. Luong and Y. Ko, “Impact of CSI uncertainty on MCIK-OFDM:
+% tight, closed-form symbol error probability analysis,” IEEE Trans. Veh.
+% Technol., vol. 67, no. 2, pp. 1272 – 1279, Feb. 2018.
 
 %% ==============================OFDM-IM/MCIK-OFDM=================================
 clc
@@ -141,7 +141,7 @@ for s1 = 1:size(sigma,2)
             tx_sym(indices,kk) = sym_tx(kk,:);
         end
         
-        % CSI error variance
+        % CSI error variance  信道状态信息误差                                       %这个是用来设置信道的
         if(CSI==1)
             eps=0; % perfect CSI
         elseif(CSI==2)
@@ -150,9 +150,9 @@ for s1 = 1:size(sigma,2)
             eps=1./(1+mmse*EsN0(s1)); % variable CSI
         end
         
-        %% Transmission over Rayleigh fading channel and AWGN noise
-        noise = 1/sqrt(2)*(randn(size(tx_sym))+1i*randn(size(tx_sym)));
-        h = 1/sqrt(2)*(randn(size(tx_sym))+1i*randn(size(tx_sym)))*sqrt(1-eps);
+        %% Transmission over Rayleigh fading channel and AWGN noise                 %通过瑞利信道和高斯白噪声
+        noise = 1/sqrt(2)*(randn(size(tx_sym))+1i*randn(size(tx_sym)));             %噪声
+        h = 1/sqrt(2)*(randn(size(tx_sym))+1i*randn(size(tx_sym)))*sqrt(1-eps);     %信道响应
         e=sqrt(eps)./sqrt(2)*(randn(size(tx_sym))+1i*randn(size(tx_sym)));
         h1=h+e;
         y = sqrt(EsN0(s1))*h1.*tx_sym+noise;
@@ -255,7 +255,7 @@ for s1 = 1:size(sigma,2)
     BER1(s1)= sum(BER_iter_1)./iter;
     BER2(s1)= sum(BER_iter_2)./iter;
 end
-fprintf('�� N = %g / K = %g / M = %g / �� \n',N,K,M)
+fprintf('¬¬ N = %g / K = %g / M = %g / ¬¬ \n',N,K,M)
 
 semilogy(EbN0dB,BER,'r >-','LineWidth',2.5,'MarkerSize',12)
 hold on
